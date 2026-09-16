@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # ---- Stage 2: PHP application ----
-FROM php:8.2-cli-alpine AS app
+FROM php:8.4-cli-alpine AS app
 WORKDIR /app
 
 # System deps + PHP extensions yang dibutuhkan Laravel
