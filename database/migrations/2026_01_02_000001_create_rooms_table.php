@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('owner_id')->constrained('users')->cascadeOnDelete();
             $table->string('name', 150);
             $table->text('description')->nullable();
-            $table->string('invite_code', 12)->unique();
+            $table->string('invite_code', 16)->unique();
             $table->timestamps();
             $table->index('owner_id');
         });
