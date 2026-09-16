@@ -11,8 +11,12 @@ FROM php:8.2-cli-alpine AS app
 WORKDIR /app
 
 # System deps + PHP extensions yang dibutuhkan Laravel
-RUN apk add --no-cache bash git unzip libzip-dev oniguruma-dev \
-    && docker-php-ext-install pdo_mysql mbstring bcmath zip
+# gd + libxml dibutuhkan oleh maatwebsite/excel (PhpSpreadsheet) & laravel-dompdf
+RUN apk add --no-cache bash git unzip \
+        libzip-dev oniguruma-dev libxml2-dev \
+        libpng-dev libjpeg-turbo-dev freetype-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring bcmath zip gd xml
 
 # Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
