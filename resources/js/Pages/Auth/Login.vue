@@ -8,14 +8,14 @@ const form = useForm({ email: '', password: '', remember: false });
 const submit = () => form.post(route('login'), { onFinish: () => form.reset('password') });
 </script>
 <template>
-  <Head :title="'Log in'" /><GuestLayout
-    ><h1 class="tdb-heading text-3xl">{{ 'Welcome back.' }}</h1>
-    <p class="mt-2 text-sm text-[var(--muted)]">{{ 'Pick up where your work left off.' }}</p>
+  <Head title="Log in" /><GuestLayout
+    ><h1 class="tdb-heading text-3xl">Welcome back.</h1>
+    <p class="mt-2 text-sm text-[var(--muted)]">Pick up where your work left off.</p>
     <form class="mt-7 space-y-5" @submit.prevent="submit">
       <TdbInput
         id="email"
         v-model="form.email"
-        :label="'Email'"
+        label="Email"
         type="email"
         required
         autocomplete="email"
@@ -24,7 +24,7 @@ const submit = () => form.post(route('login'), { onFinish: () => form.reset('pas
       /><TdbInput
         id="password"
         v-model="form.password"
-        :label="'Password'"
+        label="Password"
         type="password"
         required
         autocomplete="current-password"
@@ -32,10 +32,10 @@ const submit = () => form.post(route('login'), { onFinish: () => form.reset('pas
         :error="form.errors.password"
       />
       <div class="flex items-center justify-between gap-3">
-        <SketchCheckbox :checked="form.remember" :label="'Remember me'" @change="form.remember = $event" /><Link
+        <SketchCheckbox :checked="form.remember" label="Remember me" @change="form.remember = $event" /><Link
           :href="route('password.request')"
           class="text-sm font-semibold text-[var(--primary)] hover:underline"
-          >{{ 'Forgot password?' }}</Link
+          >Forgot password?</Link
         >
       </div>
       <TdbButton class="w-full" type="submit" :disabled="form.processing">{{
@@ -43,8 +43,8 @@ const submit = () => form.post(route('login'), { onFinish: () => form.reset('pas
       }}</TdbButton>
     </form>
     <p class="mt-6 text-center text-sm text-[var(--muted)]">
-      {{ 'New to TDB?' }}
-      <Link :href="route('register')" class="font-bold text-[var(--primary)] hover:underline">{{ 'Create an account' }}</Link>
+      New to TDB?
+      <Link :href="route('register')" class="font-bold text-[var(--primary)] hover:underline">Create an account</Link>
     </p></GuestLayout
   >
 </template>

@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { Head, Link, router, usePage, useForm } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import TdbIcon from '@/Components/UI/TdbIcon.vue';
 import TdbDropdown from '@/Components/UI/TdbDropdown.vue';
 
@@ -49,7 +49,7 @@ const applyAppearance = (choice) => {
 };
 const setAppearance = (choice) => {
   if (page.props.auth?.user) {
-    router.patch(window.route('settings.appearance'), { appearance: choice }, { preserveScroll: true, preserveState: true });
+    router.patch(route('settings.appearance'), { appearance: choice }, { preserveScroll: true, preserveState: true });
   } else {
     applyAppearance(choice);
   }
@@ -117,7 +117,7 @@ onBeforeUnmount(() => clearTimeout(toastTimer));
             method="post"
             as="button"
             class="nav-copy text-xs font-bold text-[var(--muted)] hover:text-[var(--danger)]"
-            >{{ 'Log out' }}</Link
+            >Log out</Link
           >
         </div>
       </div>
@@ -144,7 +144,7 @@ onBeforeUnmount(() => clearTimeout(toastTimer));
             v-model="query"
             class="tdb-input"
             type="search"
-            :placeholder="'Search projects, tasks, or files…'"
+            placeholder="Search projects, tasks, or files…"
             aria-label="Global search"
           />
         </form>
@@ -152,24 +152,50 @@ onBeforeUnmount(() => clearTimeout(toastTimer));
           <!-- Theme Toggle -->
           <TdbDropdown>
             <template #trigger>
-              <span class="text-lg">{{ preferredAppearance === 'dark' ? '◐' : preferredAppearance === 'system' ? '◒' : '☀' }}</span>
+              <span class="text-lg">{{
+                preferredAppearance === 'dark' ? '◐' : preferredAppearance === 'system' ? '◒' : '☀'
+              }}</span>
             </template>
-            <button class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]" @click="setAppearance('light')">
-              <TdbIcon name="check" :size="16" class="text-[var(--primary)]" :class="{ 'opacity-0': preferredAppearance !== 'light' }" />
-              <span class="text-base w-4 text-center">☀</span> {{ 'Light' }}
+            <button
+              class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]"
+              @click="setAppearance('light')"
+            >
+              <TdbIcon
+                name="check"
+                :size="16"
+                class="text-[var(--primary)]"
+                :class="{ 'opacity-0': preferredAppearance !== 'light' }"
+              />
+              <span class="text-base w-4 text-center">☀</span> Light
             </button>
-            <button class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]" @click="setAppearance('dark')">
-              <TdbIcon name="check" :size="16" class="text-[var(--primary)]" :class="{ 'opacity-0': preferredAppearance !== 'dark' }" />
-              <span class="text-base w-4 text-center">◐</span> {{ 'Dark' }}
+            <button
+              class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]"
+              @click="setAppearance('dark')"
+            >
+              <TdbIcon
+                name="check"
+                :size="16"
+                class="text-[var(--primary)]"
+                :class="{ 'opacity-0': preferredAppearance !== 'dark' }"
+              />
+              <span class="text-base w-4 text-center">◐</span> Dark
             </button>
-            <button class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]" @click="setAppearance('system')">
-              <TdbIcon name="check" :size="16" class="text-[var(--primary)]" :class="{ 'opacity-0': preferredAppearance !== 'system' }" />
-              <span class="text-base w-4 text-center">◒</span> {{ 'System' }}
+            <button
+              class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]"
+              @click="setAppearance('system')"
+            >
+              <TdbIcon
+                name="check"
+                :size="16"
+                class="text-[var(--primary)]"
+                :class="{ 'opacity-0': preferredAppearance !== 'system' }"
+              />
+              <span class="text-base w-4 text-center">◒</span> System
             </button>
           </TdbDropdown>
           <div class="topbar-user text-right">
             <strong class="block text-sm">{{ page.props.auth.user.name }}</strong>
-            <span class="block text-xs text-[var(--muted)]">{{ 'Personal workspace' }}</span>
+            <span class="block text-xs text-[var(--muted)]">Personal workspace</span>
           </div>
         </div>
       </header>
@@ -178,15 +204,15 @@ onBeforeUnmount(() => clearTimeout(toastTimer));
 
     <nav class="mobile-bottom" aria-label="Mobile navigation">
       <Link :href="route('dashboard')" :class="{ active: isActive('dashboard') }">
-        <TdbIcon name="dashboard" :size="20" /><span>{{ 'Home' }}</span>
+        <TdbIcon name="dashboard" :size="20" /><span>Home</span>
       </Link>
       <Link :href="route('projects.index')" :class="{ active: isActive('projects.index') }">
-        <TdbIcon name="projects" :size="20" /><span>{{ 'Projects' }}</span>
+        <TdbIcon name="projects" :size="20" /><span>Projects</span>
       </Link>
       <Link :href="route('tasks.index')" :class="{ active: isActive('tasks.index') }">
-        <TdbIcon name="tasks" :size="20" /><span>{{ 'Tasks' }}</span>
+        <TdbIcon name="tasks" :size="20" /><span>Tasks</span>
       </Link>
-      <button @click="mobileOpen = true"><TdbIcon name="more" :size="20" /><span>{{ 'More' }}</span></button>
+      <button @click="mobileOpen = true"><TdbIcon name="more" :size="20" /><span>More</span></button>
     </nav>
 
     <div class="toast-stack" aria-live="polite">

@@ -151,7 +151,7 @@ const tone = (status) => (status === 'done' ? 'success' : status === 'in_progres
           <label class="tdb-label" for="drawer-deadline">Deadline</label>
           <input id="drawer-deadline" v-model="form.deadline" class="tdb-input" type="date" required />
         </div>
-        
+
         <div v-if="roomMembers.length">
           <label class="tdb-label">Assign to</label>
           <div class="mt-1 flex flex-wrap gap-2">
@@ -160,15 +160,18 @@ const tone = (status) => (status === 'done' ? 'success' : status === 'in_progres
               :key="member.id"
               type="button"
               class="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold transition-all"
-              :class="form.assignees.includes(member.id)
-                ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
-                : 'border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'"
+              :class="
+                form.assignees.includes(member.id)
+                  ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
+                  : 'border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'
+              "
               @click="toggleAssignee(member.id)"
             >
               <span
                 class="grid h-6 w-6 flex-none place-items-center rounded-full text-xs font-bold"
                 :class="form.assignees.includes(member.id) ? 'bg-[var(--primary)] text-white' : 'bg-[var(--surface-2)]'"
-              >{{ member.name.charAt(0).toUpperCase() }}</span>
+                >{{ member.name.charAt(0).toUpperCase() }}</span
+              >
               {{ member.name }}
             </button>
           </div>
@@ -202,7 +205,9 @@ const tone = (status) => (status === 'done' ? 'success' : status === 'in_progres
               :key="assignee.id"
               class="flex items-center gap-2 rounded-full border border-[var(--line)] bg-[var(--surface)] py-1 pl-1 pr-3"
             >
-              <span class="grid h-6 w-6 place-items-center rounded-full bg-[var(--primary)]/10 text-xs font-bold text-[var(--primary)]">
+              <span
+                class="grid h-6 w-6 place-items-center rounded-full bg-[var(--primary)]/10 text-xs font-bold text-[var(--primary)]"
+              >
                 {{ assignee.name.charAt(0).toUpperCase() }}
               </span>
               <span class="text-sm font-semibold">{{ assignee.name }}</span>
@@ -261,19 +266,16 @@ const tone = (status) => (status === 'done' ? 'success' : status === 'in_progres
           <h3 class="mb-3 text-sm font-extrabold uppercase tracking-wide text-[var(--muted)]">Activity</h3>
           <div class="border-l-2 border-[var(--line)] pl-4 text-sm text-[var(--muted)] space-y-2">
             <p v-if="task.creator">
-              Created by <strong class="text-[var(--ink)]">{{ task.creator.name }}</strong> on {{ formatDate(task.created_at) }}
+              Created by <strong class="text-[var(--ink)]">{{ task.creator.name }}</strong> on
+              {{ formatDate(task.created_at) }}
             </p>
-            <p v-else>
-              Created {{ formatDate(task.created_at) }}
-            </p>
+            <p v-else>Created {{ formatDate(task.created_at) }}</p>
             <p>Last updated {{ formatDate(task.updated_at) }}</p>
           </div>
         </section>
 
         <div class="flex flex-wrap gap-2 border-t border-[var(--line)] pt-5">
-          <TdbButton variant="secondary" @click="editing = true">
-            <TdbIcon name="edit" :size="17" /> Edit
-          </TdbButton>
+          <TdbButton variant="secondary" @click="editing = true"> <TdbIcon name="edit" :size="17" /> Edit </TdbButton>
           <TdbButton variant="secondary" @click="markDone">
             <TdbIcon name="check" :size="17" />
             {{ task.status === 'done' ? 'Move to To-do' : 'Mark as done' }}

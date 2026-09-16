@@ -3,9 +3,7 @@ import { computed, onMounted } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import TdbDropdown from '@/Components/UI/TdbDropdown.vue';
 
-const preferredAppearance = computed(
-  () => localStorage.getItem('tdb-appearance') ?? 'system',
-);
+const preferredAppearance = computed(() => localStorage.getItem('tdb-appearance') ?? 'system');
 
 const applyAppearance = (choice) => {
   localStorage.setItem('tdb-appearance', choice);
@@ -30,19 +28,45 @@ onMounted(() => {
       <!-- Theme Toggle -->
       <TdbDropdown>
         <template #trigger>
-          <span class="text-lg">{{ preferredAppearance === 'dark' ? '◐' : preferredAppearance === 'system' ? '◒' : '☀' }}</span>
+          <span class="text-lg">{{
+            preferredAppearance === 'dark' ? '◐' : preferredAppearance === 'system' ? '◒' : '☀'
+          }}</span>
         </template>
-        <button type="button" class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]" @click="setAppearance('light')">
-          <span class="text-base w-4 text-center text-[var(--primary)]" :class="{ 'opacity-0': preferredAppearance !== 'light' }">✓</span>
-          <span class="text-base w-4 text-center">☀</span> {{ 'Light' }}
+        <button
+          type="button"
+          class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]"
+          @click="setAppearance('light')"
+        >
+          <span
+            class="text-base w-4 text-center text-[var(--primary)]"
+            :class="{ 'opacity-0': preferredAppearance !== 'light' }"
+            >✓</span
+          >
+          <span class="text-base w-4 text-center">☀</span> Light
         </button>
-        <button type="button" class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]" @click="setAppearance('dark')">
-          <span class="text-base w-4 text-center text-[var(--primary)]" :class="{ 'opacity-0': preferredAppearance !== 'dark' }">✓</span>
-          <span class="text-base w-4 text-center">◐</span> {{ 'Dark' }}
+        <button
+          type="button"
+          class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]"
+          @click="setAppearance('dark')"
+        >
+          <span
+            class="text-base w-4 text-center text-[var(--primary)]"
+            :class="{ 'opacity-0': preferredAppearance !== 'dark' }"
+            >✓</span
+          >
+          <span class="text-base w-4 text-center">◐</span> Dark
         </button>
-        <button type="button" class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]" @click="setAppearance('system')">
-          <span class="text-base w-4 text-center text-[var(--primary)]" :class="{ 'opacity-0': preferredAppearance !== 'system' }">✓</span>
-          <span class="text-base w-4 text-center">◒</span> {{ 'System' }}
+        <button
+          type="button"
+          class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm hover:bg-[var(--surface-2)]"
+          @click="setAppearance('system')"
+        >
+          <span
+            class="text-base w-4 text-center text-[var(--primary)]"
+            :class="{ 'opacity-0': preferredAppearance !== 'system' }"
+            >✓</span
+          >
+          <span class="text-base w-4 text-center">◒</span> System
         </button>
       </TdbDropdown>
     </div>

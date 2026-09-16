@@ -36,9 +36,11 @@ const filterRoom = (roomId) => {
     <div v-if="rooms.length" class="mb-4 flex items-center gap-2 overflow-x-auto pb-2 kanban-scroll">
       <button
         class="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-semibold transition-all"
-        :class="(!filters.room || filters.room === 'all')
-          ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
-          : 'border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'"
+        :class="
+          !filters.room || filters.room === 'all'
+            ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
+            : 'border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'
+        "
         @click="filterRoom('all')"
       >
         All tasks
@@ -47,9 +49,11 @@ const filterRoom = (roomId) => {
         v-for="room in rooms"
         :key="room.id"
         class="whitespace-nowrap rounded-full border px-3 py-1.5 text-sm font-semibold transition-all"
-        :class="filters.room == room.id
-          ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
-          : 'border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'"
+        :class="
+          filters.room == room.id
+            ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
+            : 'border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'
+        "
         @click="filterRoom(room.id)"
       >
         {{ room.name }}
@@ -69,7 +73,7 @@ const filterRoom = (roomId) => {
         <TaskCard :task="task" @open="selectedTask = $event" @toggle="toggle" />
       </div>
     </div>
-    
+
     <section v-else class="tdb-card mt-5 px-5 py-16 text-center">
       <span class="mx-auto grid h-14 w-14 place-items-center rounded-xl border border-dashed border-[var(--line)]">
         <TdbIcon name="tasks" :size="28" />

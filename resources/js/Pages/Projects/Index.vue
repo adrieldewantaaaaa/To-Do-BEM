@@ -26,13 +26,13 @@ const setView = (value) => {
 };
 </script>
 <template>
-  <AppLayout :title="'Projects'"
+  <AppLayout title="Projects"
     ><div class="mb-7 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 class="tdb-heading text-3xl sm:text-4xl">{{ 'Projects' }}</h1>
-        <p class="mt-2 text-[var(--muted)]">{{ 'Every active commitment, in one clear view.' }}</p>
+        <h1 class="tdb-heading text-3xl sm:text-4xl">Projects</h1>
+        <p class="mt-2 text-[var(--muted)]">Every active commitment, in one clear view.</p>
       </div>
-      <TdbButton :href="route('projects.create')"><TdbIcon name="plus" :size="18" /> {{ 'Create project' }}</TdbButton>
+      <TdbButton :href="route('projects.create')"><TdbIcon name="plus" :size="18" /> Create project</TdbButton>
     </div>
     <form
       class="tdb-panel mb-5 grid gap-3 p-4 md:grid-cols-[minmax(220px,1fr)_160px_160px_auto]"
@@ -43,21 +43,21 @@ const setView = (value) => {
           v-model="form.search"
           class="tdb-input !pl-10"
           type="search"
-          :placeholder="'Search projects…'"
-          :aria-label="'Search projects'"
+          placeholder="Search projects…"
+          aria-label="Search projects"
           @input="search"
         />
       </div>
-      <select v-model="form.status" class="tdb-input" :aria-label="'Filter project status'" @change="submit">
-        <option value="all">{{ 'All projects' }}</option>
-        <option value="active">{{ 'Active' }}</option>
-        <option value="completed">{{ 'Completed' }}</option>
-        <option value="archived">{{ 'Archived' }}</option></select
-      ><select v-model="form.sort" class="tdb-input" :aria-label="'Sort projects'" @change="submit">
-        <option value="latest">{{ 'Latest' }}</option>
-        <option value="oldest">{{ 'Oldest' }}</option>
-        <option value="deadline">{{ 'Deadline' }}</option>
-        <option value="progress">{{ 'Progress' }}</option>
+      <select v-model="form.status" class="tdb-input" aria-label="Filter project status" @change="submit">
+        <option value="all">All projects</option>
+        <option value="active">Active</option>
+        <option value="completed">Completed</option>
+        <option value="archived">Archived</option></select
+      ><select v-model="form.sort" class="tdb-input" aria-label="Sort projects" @change="submit">
+        <option value="latest">Latest</option>
+        <option value="oldest">Oldest</option>
+        <option value="deadline">Deadline</option>
+        <option value="progress">Progress</option>
       </select>
       <div class="flex rounded-lg border border-[var(--line)] p-1">
         <button
@@ -66,14 +66,14 @@ const setView = (value) => {
           :class="view === 'grid' ? 'bg-[var(--surface-2)] text-[var(--ink)]' : 'text-[var(--muted)]'"
           @click="setView('grid')"
         >
-          {{ 'Grid' }}</button
+          Grid</button
         ><button
           type="button"
           class="rounded-md px-3 py-1.5 text-sm font-bold"
           :class="view === 'list' ? 'bg-[var(--surface-2)] text-[var(--ink)]' : 'text-[var(--muted)]'"
           @click="setView('list')"
         >
-          {{ 'List' }}
+          List
         </button>
       </div>
     </form>
@@ -87,7 +87,7 @@ const setView = (value) => {
       <span class="mx-auto grid h-14 w-14 place-items-center rounded-xl border border-dashed border-[var(--line)]"
         ><TdbIcon name="projects" :size="28"
       /></span>
-      <h2 class="tdb-heading mt-4 text-2xl">{{ 'No projects found.' }}</h2>
+      <h2 class="tdb-heading mt-4 text-2xl">No projects found.</h2>
       <p class="mx-auto mt-2 max-w-md text-sm text-[var(--muted)]">
         {{
           form.search || form.status !== 'all'
@@ -96,7 +96,7 @@ const setView = (value) => {
         }}
       </p>
       <TdbButton v-if="!form.search && form.status === 'all'" :href="route('projects.create')" class="mt-5"
-        ><TdbIcon name="plus" :size="18" /> {{ 'Create project' }}</TdbButton
+        ><TdbIcon name="plus" :size="18" /> Create project</TdbButton
       >
     </section>
     <nav v-if="projects.links.length > 3" class="mt-6 flex flex-wrap justify-center gap-1" aria-label="Project pages">

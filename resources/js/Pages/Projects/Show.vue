@@ -102,10 +102,7 @@ onUnmounted(() => clearInterval(pollInterval));
         </div>
         <div class="flex flex-wrap gap-2">
           <TdbButton @click="addingTask = true"><TdbIcon name="plus" :size="18" /> Add task</TdbButton
-          ><TdbButton
-            v-if="canManage"
-            :href="route('projects.edit', project.id)"
-            variant="secondary"
+          ><TdbButton v-if="canManage" :href="route('projects.edit', project.id)" variant="secondary"
             ><TdbIcon name="edit" :size="17" /> Edit</TdbButton
           ><TdbDropdown
             ><template #trigger><TdbIcon name="more" :size="20" /></template
@@ -196,7 +193,12 @@ onUnmounted(() => clearInterval(pollInterval));
       <p v-else class="p-12 text-center text-[var(--muted)]">No files attached to this project.</p>
     </section>
     <TdbModal :show="addingTask" title="Add a task" @close="addingTask = false">
-      <TaskCreateForm :project-id="project.id" :room-members="roomMembers" @saved="addingTask = false" @cancel="addingTask = false" />
+      <TaskCreateForm
+        :project-id="project.id"
+        :room-members="roomMembers"
+        @saved="addingTask = false"
+        @cancel="addingTask = false"
+      />
     </TdbModal>
     <TaskDrawer
       :show="!!selectedTask"

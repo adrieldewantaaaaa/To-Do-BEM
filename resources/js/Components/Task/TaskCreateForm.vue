@@ -9,7 +9,15 @@ const props = defineProps({
 });
 const emit = defineEmits(['saved', 'cancel']);
 const fileError = ref('');
-const form = useForm({ title: '', description: '', deadline: '', status: 'todo', priority: 'medium', attachments: [], assignees: [] });
+const form = useForm({
+  title: '',
+  description: '',
+  deadline: '',
+  status: 'todo',
+  priority: 'medium',
+  attachments: [],
+  assignees: [],
+});
 const chooseFiles = (e) => {
   const files = [...e.target.files];
   const allowed = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'png', 'jpg', 'jpeg', 'zip'];
@@ -107,15 +115,18 @@ const submit = () => {
           :key="member.id"
           type="button"
           class="inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-semibold transition-all"
-          :class="form.assignees.includes(member.id)
-            ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
-            : 'border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'"
+          :class="
+            form.assignees.includes(member.id)
+              ? 'border-[var(--primary)] bg-[var(--primary)]/10 text-[var(--primary)]'
+              : 'border-[var(--line)] text-[var(--muted)] hover:border-[var(--primary)] hover:text-[var(--ink)]'
+          "
           @click="toggleAssignee(member.id)"
         >
           <span
             class="grid h-6 w-6 flex-none place-items-center rounded-full text-xs font-bold"
             :class="form.assignees.includes(member.id) ? 'bg-[var(--primary)] text-white' : 'bg-[var(--surface-2)]'"
-          >{{ member.name.charAt(0).toUpperCase() }}</span>
+            >{{ member.name.charAt(0).toUpperCase() }}</span
+          >
           {{ member.name }}
         </button>
       </div>

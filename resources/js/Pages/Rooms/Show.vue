@@ -63,7 +63,8 @@ const removeMember = () => {
           </div>
           <p class="mt-2 max-w-3xl text-[var(--muted)]">{{ room.description || 'No description yet.' }}</p>
           <p class="mt-2 text-sm text-[var(--muted)]">
-            Owner <strong class="text-[var(--ink)]">{{ room.owner.name }}</strong> · created {{ formatDate(room.created_at) }}
+            Owner <strong class="text-[var(--ink)]">{{ room.owner.name }}</strong> · created
+            {{ formatDate(room.created_at) }}
           </p>
         </div>
         <div class="flex flex-wrap gap-2">
@@ -120,7 +121,10 @@ const removeMember = () => {
         <section class="tdb-card p-5">
           <h2 class="text-sm font-bold uppercase tracking-[.08em] text-[var(--muted)]">Invite code</h2>
           <div class="mt-3 flex items-center gap-2">
-            <code class="flex-1 rounded-lg border border-[var(--line)] bg-[var(--surface-2)] px-3 py-2 text-lg font-bold tracking-[.18em]">{{ room.invite_code }}</code>
+            <code
+              class="flex-1 rounded-lg border border-[var(--line)] bg-[var(--surface-2)] px-3 py-2 text-lg font-bold tracking-[.18em]"
+              >{{ room.invite_code }}</code
+            >
             <button
               class="tdb-btn tdb-btn-secondary !min-h-10 !px-3"
               :aria-label="copied ? 'Copied' : 'Copy invite code'"
@@ -139,7 +143,9 @@ const removeMember = () => {
           </div>
           <ul class="divide-y divide-[var(--line)]">
             <li v-for="member in room.members" :key="member.id" class="flex items-center gap-3 px-5 py-3">
-              <span class="grid h-9 w-9 flex-none place-items-center rounded-full bg-[var(--surface-2)] text-sm font-bold">
+              <span
+                class="grid h-9 w-9 flex-none place-items-center rounded-full bg-[var(--surface-2)] text-sm font-bold"
+              >
                 {{ member.name.charAt(0).toUpperCase() }}
               </span>
               <div class="min-w-0 flex-1">
@@ -213,7 +219,9 @@ const removeMember = () => {
     </TdbModal>
 
     <TdbModal :show="confirmingDelete" title="Delete this room?" @close="confirmingDelete = false">
-      <p class="text-[var(--muted)]">This removes the room, its projects, and all tasks inside it. This cannot be undone.</p>
+      <p class="text-[var(--muted)]">
+        This removes the room, its projects, and all tasks inside it. This cannot be undone.
+      </p>
       <div class="mt-6 flex justify-end gap-2">
         <TdbButton variant="ghost" @click="confirmingDelete = false">Cancel</TdbButton>
         <TdbButton variant="danger" @click="deleteRoom">Delete room</TdbButton>
@@ -221,7 +229,9 @@ const removeMember = () => {
     </TdbModal>
 
     <TdbModal :show="confirmingLeave" title="Leave this room?" @close="confirmingLeave = false">
-      <p class="text-[var(--muted)]">You will lose access to this room's projects and tasks until you rejoin with the code.</p>
+      <p class="text-[var(--muted)]">
+        You will lose access to this room's projects and tasks until you rejoin with the code.
+      </p>
       <div class="mt-6 flex justify-end gap-2">
         <TdbButton variant="ghost" @click="confirmingLeave = false">Cancel</TdbButton>
         <TdbButton variant="danger" @click="leaveRoom">Leave room</TdbButton>

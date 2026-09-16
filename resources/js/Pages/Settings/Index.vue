@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import TdbButton from '@/Components/UI/TdbButton.vue';
@@ -31,44 +30,52 @@ const submit = () => form.patch(route('settings.appearance'), { preserveScroll: 
   <AppLayout title="Settings"
     ><div class="mx-auto max-w-4xl">
       <div class="mb-7">
-        <h1 class="tdb-heading text-3xl sm:text-4xl">{{ 'Settings' }}</h1>
+        <h1 class="tdb-heading text-3xl sm:text-4xl">Settings</h1>
         <p class="mt-2 text-[var(--muted)]">Tune the workspace without adding visual noise.</p>
       </div>
       <section class="tdb-card overflow-hidden">
         <header class="border-b border-[var(--line)] px-5 py-4 sm:px-6">
-          <h2 class="text-lg font-extrabold">{{ 'Account Settings' }}</h2>
+          <h2 class="text-lg font-extrabold">Account Settings</h2>
           <p class="mt-1 text-sm text-[var(--muted)]">Manage your account preferences here.</p>
         </header>
         <div class="p-5 sm:p-6 text-sm text-[var(--muted)] border-b border-[var(--line)]">
-          <p>Logged in as: <strong>{{ $page.props.auth.user.name }}</strong> ({{ $page.props.auth.user.email }})</p>
+          <p>
+            Logged in as: <strong>{{ $page.props.auth.user.name }}</strong> ({{ $page.props.auth.user.email }})
+          </p>
         </div>
         <form class="p-5 sm:p-6" @submit.prevent="updatePassword">
-          <h3 class="font-bold mb-4">{{ 'Change Password' }}</h3>
+          <h3 class="font-bold mb-4">Change Password</h3>
           <div class="grid gap-4 max-w-sm">
             <div>
-              <label class="block mb-1">{{ 'Current Password' }}</label>
+              <label class="block mb-1">Current Password</label>
               <input type="password" v-model="passwordForm.current_password" class="tdb-input w-full" />
-              <div v-if="passwordForm.errors.current_password" class="text-[var(--danger)] text-xs mt-1">{{ passwordForm.errors.current_password }}</div>
+              <div v-if="passwordForm.errors.current_password" class="text-[var(--danger)] text-xs mt-1">
+                {{ passwordForm.errors.current_password }}
+              </div>
             </div>
             <div>
-              <label class="block mb-1">{{ 'New Password' }}</label>
+              <label class="block mb-1">New Password</label>
               <input type="password" v-model="passwordForm.password" class="tdb-input w-full" />
-              <div v-if="passwordForm.errors.password" class="text-[var(--danger)] text-xs mt-1">{{ passwordForm.errors.password }}</div>
+              <div v-if="passwordForm.errors.password" class="text-[var(--danger)] text-xs mt-1">
+                {{ passwordForm.errors.password }}
+              </div>
             </div>
             <div>
-              <label class="block mb-1">{{ 'Confirm Password' }}</label>
+              <label class="block mb-1">Confirm Password</label>
               <input type="password" v-model="passwordForm.password_confirmation" class="tdb-input w-full" />
             </div>
             <div class="mt-2">
-              <TdbButton type="submit" :disabled="passwordForm.processing">{{ passwordForm.processing ? 'Saving…' : 'Update password' }}</TdbButton>
+              <TdbButton type="submit" :disabled="passwordForm.processing">{{
+                passwordForm.processing ? 'Saving…' : 'Update password'
+              }}</TdbButton>
             </div>
           </div>
         </form>
       </section>
-      
+
       <section class="tdb-card overflow-hidden mt-5">
         <header class="border-b border-[var(--line)] px-5 py-4 sm:px-6">
-          <h2 class="text-lg font-extrabold">{{ 'Appearance' }}</h2>
+          <h2 class="text-lg font-extrabold">Appearance</h2>
           <p class="mt-1 text-sm text-[var(--muted)]">Choose how TDB looks on this account.</p>
         </header>
         <form class="p-5 sm:p-6" @submit.prevent="submit">

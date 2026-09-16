@@ -52,13 +52,13 @@ const deadlineTone = (state) =>
   state === 'overdue' ? 'danger' : state === 'today' ? 'warning' : state === 'upcoming' ? 'primary' : 'neutral';
 </script>
 <template>
-  <AppLayout :title="'Dashboard'"
+  <AppLayout title="Dashboard"
     ><div class="mb-7 flex flex-wrap items-end justify-between gap-4">
       <div>
         <h1 class="tdb-heading text-3xl sm:text-4xl">{{ greeting }}, {{ page.props.auth.user.name.split(' ')[0] }}.</h1>
-        <p class="mt-2 text-[var(--muted)]">{{ 'Here’s what needs your attention today.' }}</p>
+        <p class="mt-2 text-[var(--muted)]">Here’s what needs your attention today.</p>
       </div>
-      <TdbButton :href="route('projects.create')"><TdbIcon name="plus" :size="18" /> {{ 'New project' }}</TdbButton>
+      <TdbButton :href="route('projects.create')"><TdbIcon name="plus" :size="18" /> New project</TdbButton>
     </div>
     <section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4" aria-label="Workspace statistics">
       <article v-for="card in cards" :key="card.label" class="tdb-card flex items-center gap-4 p-5">
@@ -75,28 +75,28 @@ const deadlineTone = (state) =>
     </section>
     <section class="mt-4 grid gap-4 lg:grid-cols-3" aria-label="Insights">
       <article class="tdb-card flex flex-col p-5">
-        <p class="text-xs font-bold uppercase tracking-[.1em] text-[var(--muted)]">{{ 'Overall completion' }}</p>
+        <p class="text-xs font-bold uppercase tracking-[.1em] text-[var(--muted)]">Overall completion</p>
         <div class="mt-3 flex items-center gap-4">
           <StatRing :value="insights.completion" :size="118" :stroke="11" />
           <div>
             <p class="tdb-heading text-2xl tabular-nums">
               {{ insights.done }} <span class="text-[var(--muted)]">/ {{ insights.total }}</span>
             </p>
-            <p class="text-sm text-[var(--muted)]">{{ 'tasks completed' }}</p>
+            <p class="text-sm text-[var(--muted)]">tasks completed</p>
           </div>
         </div>
         <div class="mt-auto border-t border-[var(--line)] pt-3">
-          <p class="mb-1.5 text-xs text-[var(--muted)]">{{ 'Completed · last 14 days' }}</p>
+          <p class="mb-1.5 text-xs text-[var(--muted)]">Completed · last 14 days</p>
           <SparkLine :points="insights.completedTrend" color="var(--success)" />
         </div>
       </article>
       <article class="tdb-card p-5">
-        <p class="text-xs font-bold uppercase tracking-[.1em] text-[var(--muted)]">{{ 'Tasks by status' }}</p>
+        <p class="text-xs font-bold uppercase tracking-[.1em] text-[var(--muted)]">Tasks by status</p>
         <div class="mt-4"><StackedBar :segments="statusSegments" /></div>
       </article>
       <article class="tdb-card p-5">
-        <p class="text-xs font-bold uppercase tracking-[.1em] text-[var(--muted)]">{{ 'Next 7 days' }}</p>
-        <p class="mt-1 text-sm text-[var(--muted)]">{{ 'Upcoming deadlines' }}</p>
+        <p class="text-xs font-bold uppercase tracking-[.1em] text-[var(--muted)]">Next 7 days</p>
+        <p class="mt-1 text-sm text-[var(--muted)]">Upcoming deadlines</p>
         <div class="mt-4"><MiniBars :bars="insights.deadlines7" color="var(--primary)" :highlight="0" /></div>
       </article>
     </section>
@@ -105,14 +105,14 @@ const deadlineTone = (state) =>
         <section class="tdb-card overflow-hidden">
           <div class="flex items-center justify-between border-b border-[var(--line)] px-5 py-4">
             <div>
-              <p class="text-xs font-extrabold uppercase tracking-[.12em] text-[var(--primary)]">{{ 'Featured project' }}</p>
-              <h2 class="tdb-heading mt-1 text-2xl">{{ 'Stay close to the finish.' }}</h2>
+              <p class="text-xs font-extrabold uppercase tracking-[.12em] text-[var(--primary)]">Featured project</p>
+              <h2 class="tdb-heading mt-1 text-2xl">Stay close to the finish.</h2>
             </div>
             <Link
               v-if="featured"
               :href="route('projects.show', featured.id)"
               class="text-sm font-bold text-[var(--primary)]"
-              >{{ 'View project →' }}</Link
+              >View project →</Link
             >
           </div>
           <div v-if="featured" class="grid gap-6 p-5 md:grid-cols-[minmax(0,1fr)_260px]">
@@ -125,7 +125,7 @@ const deadlineTone = (state) =>
                 {{ featured.description || 'No project description yet.' }}
               </p>
               <p class="mt-5 text-sm">
-                <span class="text-[var(--muted)]">{{ 'Deadline' }}</span>
+                <span class="text-[var(--muted)]">Deadline</span>
                 <strong class="ml-2">{{ formatDate(featured.deadline) }}</strong>
               </p>
             </div>
@@ -134,7 +134,7 @@ const deadlineTone = (state) =>
                 :href="route('projects.show', featured.id)"
                 variant="secondary"
                 class="mt-5 w-full"
-                >{{ 'Open board →' }}</TdbButton
+                >Open board →</TdbButton
               >
             </div>
           </div>
@@ -142,14 +142,14 @@ const deadlineTone = (state) =>
             <span class="mx-auto grid h-12 w-12 place-items-center rounded-xl border border-dashed border-[var(--line)]"
               ><TdbIcon name="projects"
             /></span>
-            <h3 class="mt-3 font-bold">{{ 'No active project yet.' }}</h3>
-            <p class="mt-1 text-sm text-[var(--muted)]">{{ 'Create one to start organizing your tasks.' }}</p>
-            <TdbButton :href="route('projects.create')" class="mt-4">{{ 'Create project' }}</TdbButton>
+            <h3 class="mt-3 font-bold">No active project yet.</h3>
+            <p class="mt-1 text-sm text-[var(--muted)]">Create one to start organizing your tasks.</p>
+            <TdbButton :href="route('projects.create')" class="mt-4">Create project</TdbButton>
           </div>
         </section>
         <section class="tdb-card">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--line)] px-5 py-4">
-            <h2 class="tdb-heading text-2xl">{{ 'My tasks' }}</h2>
+            <h2 class="tdb-heading text-2xl">My tasks</h2>
             <div class="flex flex-wrap gap-1" role="tablist">
               <button
                 v-for="tab in tabs"
@@ -189,16 +189,16 @@ const deadlineTone = (state) =>
               >
             </div>
           </div>
-          <div v-else class="px-5 py-12 text-center text-sm text-[var(--muted)]">{{ 'No tasks in this view.' }}</div>
+          <div v-else class="px-5 py-12 text-center text-sm text-[var(--muted)]">No tasks in this view.</div>
           <div class="border-t border-[var(--line)] px-5 py-3 text-right">
-            <Link :href="route('tasks.index')" class="text-sm font-bold text-[var(--primary)]">{{ 'View all tasks →' }}</Link>
+            <Link :href="route('tasks.index')" class="text-sm font-bold text-[var(--primary)]">View all tasks →</Link>
           </div>
         </section>
       </div>
       <aside class="tdb-card h-fit">
         <div class="border-b border-[var(--line)] px-5 py-4">
-          <h2 class="tdb-heading text-2xl">{{ 'Upcoming deadlines' }}</h2>
-          <p class="mt-1 text-sm text-[var(--muted)]">{{ 'The next five items on your radar.' }}</p>
+          <h2 class="tdb-heading text-2xl">Upcoming deadlines</h2>
+          <p class="mt-1 text-sm text-[var(--muted)]">The next five items on your radar.</p>
         </div>
         <div v-if="upcoming.length" class="divide-y divide-[var(--line)]">
           <button
@@ -217,7 +217,7 @@ const deadlineTone = (state) =>
             <p class="mt-3 text-xs font-bold">{{ formatDate(task.deadline) }}</p>
           </button>
         </div>
-        <p v-else class="p-8 text-center text-sm text-[var(--muted)]">{{ 'No upcoming deadlines.' }}</p>
+        <p v-else class="p-8 text-center text-sm text-[var(--muted)]">No upcoming deadlines.</p>
       </aside>
     </div>
     <TaskDrawer :show="!!selectedTask" :task="selectedTask" @close="selectedTask = null"
